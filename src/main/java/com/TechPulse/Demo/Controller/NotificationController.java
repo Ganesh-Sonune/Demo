@@ -23,12 +23,19 @@ public class NotificationController {
        return "User added successfully";
    }
 
-   @GetMapping("/id/{id}")
-    public User getUserById(@PathVariable long id){
-        Optional<User> user = userDatabase.get(id);
-   }
+    @GetMapping("/id/{id}")
+    public User getUserById(@PathVariable long id) {
+        User user = userDatabase.get(id);
 
-   @DeleteMapping("id/{id}")
+        if (user == null) {
+            throw new RuntimeException("User not found with id: " + id);
+        }
+
+        return user;
+    }
+
+
+    @DeleteMapping("id/{id}")
     public String deleteById(@PathVariable long id){
        return "User deleted :" + userDatabase.remove(id).toString();
     }

@@ -21,7 +21,7 @@ public class UserController {
         return "User created successfully";
     }
 
-    @PutMapping("/id/{id}")
+    @PutMapping("/{id}")
     public String upDateUser(@RequestBody User user , @PathVariable long id){
         userService.upDateUser(id , user);
         return "User updated successfully";
