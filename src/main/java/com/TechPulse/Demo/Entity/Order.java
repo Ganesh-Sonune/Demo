@@ -7,24 +7,24 @@ import jakarta.persistence.*;
 public class Order {
 
     @Id
-    private long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     private String product;
     private double price;
 
-    public User getUser() {
-        return user;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    // getters & setters
+
+    public Long getId() {
+        return id;
     }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public String getProduct() {
-        return product;
-    }
-
-    public void setProduct(String product) {
-        this.product = product;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public double getPrice() {
@@ -35,15 +35,19 @@ public class Order {
         this.price = price;
     }
 
-    public long getId() {
-        return id;
+    public String getProduct() {
+        return product;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setProduct(String product) {
+        this.product = product;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }

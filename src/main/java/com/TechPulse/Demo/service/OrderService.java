@@ -21,14 +21,11 @@ public class OrderService {
     // 1️⃣ Create Order for a User
     public Order createOrder(Long userId, Order order) {
 
-        // Fetch user (Many-to-One rule)
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found with id: " + userId));
+                .orElseThrow(() ->
+                        new RuntimeException("User not found with id: " + userId));
 
-        // Set relationship
         order.setUser(user);
-
-        // Save order
         return orderRepository.save(order);
     }
 
@@ -42,13 +39,8 @@ public class OrderService {
         return orderRepository.findByUserId(userId);
     }
 
-    // 4️⃣ Delete order by id
+    // 4️⃣ Delete order
     public void deleteOrder(Long orderId) {
-
-        if (!orderRepository.existsById(orderId)) {
-            throw new RuntimeException("Order not found with id: " + orderId);
-        }
-
         orderRepository.deleteById(orderId);
     }
 }
